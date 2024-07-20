@@ -1,6 +1,6 @@
 model Task {
   id          String       @id @default(cuid())
-  name        String       @unique
+  name        String
   description String?      @db.Text
   assignedTo  String
   startAt     DateTime
@@ -9,6 +9,8 @@ model Task {
   priority    TaskPriority @default(MEDIUM)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+
+  @@unique([name, assignedTo])
 }
 
 enum TaskStatus {
