@@ -1,6 +1,18 @@
-# ide files
+# Dependencies and build
+node_modules
+build
+tmp
+
+dist
+
+# Secrets
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+
+# Editors specific
+.fleet
 .idea
 .vscode
-
-# dependencies
-node_modules
