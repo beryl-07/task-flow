@@ -6,12 +6,19 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from "@nestjs/common";
 import { TaskService } from "./task.service";
-import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOkResponse, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { TaskEntity } from "./entities/task.entity";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
+import { FilteringDto, PaginationDto, SortingDto } from "./dto/pagination.dto";
+import {
+  FilteringEntity,
+  PaginationEntity,
+  SortingEntity,
+} from "./entities/pagination.entity";
 
 @Controller("tasks")
 @ApiTags("articles")
@@ -24,8 +31,27 @@ export class TaskController {
     isArray: true,
     description: "Get all tasks",
   })
-  getTasks() {
-    return this.taskService.getTasks();
+  @ApiQuery({
+    type: PaginationEntity,
+    name: "pagination",
+    required: false,
+  })
+  @ApiQuery({
+    type: SortingEntity,
+    name: "sorting",
+    required: false,
+  })
+  @ApiQuery({
+    type: FilteringEntity,
+    name: "filtering",
+    required: false,
+  })
+  getTasks(
+    @Query() paginationDto: PaginationDto,
+    @Query() sortingDto: SortingDto,
+    @Query() filteringDto: FilteringDto,
+  ) {
+    return this.taskService.getTasks(paginationDto, sortingDto, filteringDto);
   }
 
   @Get("/:taskId")

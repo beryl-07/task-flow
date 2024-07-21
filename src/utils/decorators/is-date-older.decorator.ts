@@ -20,9 +20,9 @@ export function IsDateOlderThan(
           const [relatedPropertyName] = args.constraints;
           const relatedValue = (args.object as any)[relatedPropertyName];
           return (
-            typeof value === "string" &&
-            typeof relatedValue === "string" &&
-            new Date(value) < new Date(relatedValue)
+            value instanceof Date &&
+            relatedValue instanceof Date &&
+            value < relatedValue
           );
         },
       },
