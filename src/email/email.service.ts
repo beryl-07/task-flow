@@ -13,8 +13,8 @@ export class EmailService {
   async sendAssignmentEmail(task: Task) {
     const mailerOptions = {
       to: task.assignedTo,
-      subject: `Task Assigned: ${task.name}`,
-      text: `<p>You have been assigned a task with the following details: <strong>${task.description}</strong></p>`,
+      subject: `Task Assigned: ${task.title}`,
+      text: `<p>You have been assigned a task with the following details: <strong>${task}</strong></p>`,
     };
 
     await this.mailerService.sendMail(mailerOptions);

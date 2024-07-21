@@ -1,9 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class PaginationEntity {
-  // Add Base64 regex in format
   @ApiProperty({ required: false, nullable: true })
-  pageToken: string;
+  page: number;
 
   @ApiProperty({ required: false, nullable: true })
   pageSize: number;
@@ -11,7 +10,16 @@ export class PaginationEntity {
 
 export class SortingEntity {
   @ApiProperty({ required: false, nullable: true })
-  sortBy: string;
+  sortBy:
+    | "id"
+    | "title"
+    | "assignedTo"
+    | "startAt"
+    | "endAt"
+    | "status"
+    | "priority"
+    | "createdAt"
+    | "updatedAt";
 
   @ApiProperty({ required: false, nullable: true })
   sortOrder: "asc" | "desc";
@@ -19,9 +27,37 @@ export class SortingEntity {
 
 export class FilteringEntity {
   @ApiProperty({
-    format: "/^(\\w+:\\w+(,\\w+:\\w+)*)?$/",
+    format: "/^\\w+(\\.\\w+)*$/",
     required: false,
     nullable: true,
   })
-  filter: string;
+  assignedTo: string;
+
+  @ApiProperty({
+    format: "/^\\w+(\\.\\w+)*$/",
+    required: false,
+    nullable: true,
+  })
+  status: string;
+
+  @ApiProperty({
+    format: "/^\\w+(\\.\\w+)*$/",
+    required: false,
+    nullable: true,
+  })
+  priority: string;
+
+  @ApiProperty({
+    format: "/^\\w+(\\.\\w+)*$/",
+    required: false,
+    nullable: true,
+  })
+  from: Date;
+
+  @ApiProperty({
+    format: "/^\\w+(\\.\\w+)*$/",
+    required: false,
+    nullable: true,
+  })
+  to: Date;
 }

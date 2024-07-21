@@ -6,10 +6,7 @@ export class TaskEntity implements Task {
   id: string;
 
   @ApiProperty()
-  name: string;
-
-  @ApiProperty({ required: false, nullable: true })
-  description: string | null;
+  title: string;
 
   @ApiProperty()
   assignedTo: string;

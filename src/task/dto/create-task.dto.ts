@@ -1,4 +1,4 @@
-import { TaskPriority, TaskStatus } from "@prisma/client";
+import { Task, TaskPriority, TaskStatus } from "@prisma/client";
 import {
   IsDate,
   IsEmail,
@@ -13,21 +13,17 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsDateOlderThan } from "../../utils/decorators/is-date-older.decorator";
 
-export class CreateTaskDto {
+export class CreateTaskDto
+  implements Omit<Task, "id" | "createdAt" | "updatedAt">
+{
   @IsString()
   @IsNotEmpty()
   @MinLength(5)
+  @MaxLength(255)
   @ApiProperty({
     minItems: 5,
   })
-  name: string;
-
-  @IsString()
-  @IsOptional()
-  @IsNotEmpty()
-  @MaxLength(255)
-  @ApiProperty({ required: false, maxLength: 255 })
-  description?: string;
+  title: string;
 
   @IsEmail()
   @IsNotEmpty()
@@ -50,20 +46,21 @@ export class CreateTaskDto {
   endAt: Date;
 
   @IsEnum(TaskStatus)
+  @Transform(({ value }) => value as TaskStatus)
   @IsOptional()
   @ApiProperty({
-    name: "TaskStatus",
+    name: "status",
     enum: TaskStatus,
     default: TaskStatus.TODO,
   })
-  status: TaskStatus = TaskStatus.TODO;
+  status: TaskStatus;
 
   @IsEnum(TaskPriority)
   @IsOptional()
   @ApiProperty({
-    name: "TaskPriority",
+    name: "priority",
     enum: TaskPriority,
     default: TaskPriority.MEDIUM,
   })
-  priority: TaskPriority = TaskPriority.MEDIUM;
+  priority: TaskPriority;
 }

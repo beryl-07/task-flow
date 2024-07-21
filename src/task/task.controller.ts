@@ -21,7 +21,7 @@ import {
 } from "./entities/pagination.entity";
 
 @Controller("tasks")
-@ApiTags("articles")
+@ApiTags("Tasks")
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
