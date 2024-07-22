@@ -4,7 +4,7 @@ import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import { EmailService } from "../email/email.service";
 import { FilteringDto, PaginationDto, SortingDto } from "./dto/pagination.dto";
-import { Prisma, TaskPriority, TaskStatus } from "@prisma/client";
+import { Prisma, Task, TaskPriority, TaskStatus } from "@prisma/client";
 
 @Injectable()
 export class TaskService {
@@ -129,5 +129,20 @@ export class TaskService {
         id: taskId,
       },
     });
+  }
+
+  async getTasksForReminders(now: Date): Promise<Task[]> {
+    const tasks = await this.prisma.task.findMany({
+      where: {
+        status: { not: TaskStatus.COMPLETED },
+        endAt: {
+          gt: now,
+          lte: new Date(now.getTime() + 24 * 60 * 60 * 1000), // Within next 24 hours
+        },
+      },
+    });
+
+    console.log(tasks);
+    return tasks;
   }
 }

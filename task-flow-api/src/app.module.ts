@@ -4,7 +4,8 @@ import { PrismaModule } from "./prisma/prisma.module";
 import { EmailModule } from "./email/email.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { MailerModule } from "@nestjs-modules/mailer";
-import { ReminderModule } from './reminder/reminder.module';
+import { ReminderModule } from "./reminder/reminder.module";
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ReminderModule } from './reminder/reminder.module';
         },
       }),
     }),
+    ScheduleModule.forRoot(),
     PrismaModule,
     TaskModule,
     EmailModule,

@@ -8,5 +8,6 @@ import { EmailService } from "../email/email.service";
   controllers: [TaskController],
   providers: [TaskService, EmailService],
   imports: [PrismaModule],
+  exports: [TaskService],
 })
 export class TaskModule {}
