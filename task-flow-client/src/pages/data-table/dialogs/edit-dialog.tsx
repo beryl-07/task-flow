@@ -38,12 +38,14 @@ import { format } from "date-fns";
 import { Textarea } from "@/components/ui/textarea.tsx";
 import React from "react";
 import { Icons } from "@/components/icons";
+import { useNavigate } from "react-router-dom";
 
 type EditProps = {
   task: TaskType;
 };
 
 export default function EditDialog({ task }: EditProps) {
+    const navigate = useNavigate();
   const form = useForm<TaskType>({
     resolver: zodResolver(TaskSchema),
     defaultValues: {
@@ -83,7 +85,8 @@ export default function EditDialog({ task }: EditProps) {
         return;
       }
       startEditTransition(() => {
-        window.location.reload();
+        // window.location.reload();
+        navigate(0)
       });
     })();
   }

@@ -2,7 +2,6 @@ import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/icons";
 import { useForm } from "react-hook-form";
-// import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +32,7 @@ export function CreateTaskDialog() {
       endAt: (() => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        return tomorrow
+        return tomorrow;
       })(),
       status: "TODO",
       priority: "MEDIUM",
@@ -69,31 +68,16 @@ export function CreateTaskDialog() {
           return;
         }
         console.log("Done");
-        // redirect('/')
         startCreateTransition(() => {
           console.log("in");
+          form.reset();
+          setOpen(false);
           redirect("/");
         });
       } catch (error) {
         console.error(error);
       }
-
     })();
-
-    // startCreateTransition(async () => {
-    //     const { error } = await createTask(input)
-    //
-    //     if (error) {
-    //         // toast.error(error)
-    //         console.log(error)
-    //         return
-    //     }
-    //
-    //     form.reset()
-    //     setOpen(false)
-    //     // toast.success("Task created")
-    //     console.log("Task created")
-    // })
   }
 
   return (
@@ -112,14 +96,13 @@ export function CreateTaskDialog() {
           </DialogDescription>
         </DialogHeader>
         <CreateTaskForm form={form} onSubmit={onSubmit}>
-        
           <DialogFooter className="gap-2 pt-2 sm:space-x-0">
             <DialogClose asChild>
               <Button type="button" variant="outline">
                 Cancel
               </Button>
             </DialogClose>
-            <Button disabled={isCreatePending}>
+            <Button disabled={isCreatePending} type="submit">
               {isCreatePending && (
                 <Icons.loader
                   className="mr-2 size-4 animate-spin"

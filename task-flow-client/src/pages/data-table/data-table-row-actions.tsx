@@ -19,8 +19,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Icons } from "@/components/icons";
 import { TaskPriority, TaskSchema, TaskStatus, TaskType } from "@/pages/data-table/schema.ts";
-
-// import { TaskSchema} from "./schema";
 import { DeleteDialog } from "./dialogs/delete-dialog";
 import EditDialog from "@/pages/data-table/dialogs/edit-dialog.tsx";
 import React from "react";
