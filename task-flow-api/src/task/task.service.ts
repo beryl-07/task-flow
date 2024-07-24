@@ -131,6 +131,16 @@ export class TaskService {
     });
   }
 
+  async deleteManyTasks(taskIds: string[]) {
+    return this.prisma.task.deleteMany({
+      where: {
+        id: {
+          in: taskIds,
+        },
+      },
+    });
+  }
+
   async getTasksForReminders(now: Date): Promise<Task[]> {
     const tasks = await this.prisma.task.findMany({
       where: {

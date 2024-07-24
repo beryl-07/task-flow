@@ -10,8 +10,8 @@ import {
 } from "@nestjs/common";
 import { TaskService } from "./task.service";
 import { ApiOkResponse, ApiQuery, ApiTags } from "@nestjs/swagger";
-import { TaskEntity } from "./entities/task.entity";
-import { CreateTaskDto } from "./dto/create-task.dto";
+import { deleteManyTaskEntity, TaskEntity } from "./entities/task.entity";
+import { CreateTaskDto, deleteManyTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import { FilteringDto, PaginationDto, SortingDto } from "./dto/pagination.dto";
 import {
@@ -91,5 +91,14 @@ export class TaskController {
   })
   deleteTask(@Param("taskId") taskId: string) {
     return this.taskService.deleteTask(taskId);
+  }
+
+  @Post("/deleteMany")
+  @ApiOkResponse({
+    type: deleteManyTaskEntity,
+    description: "Delete many tasks",
+  })
+  deleteManyTasks(@Body() taskIds: deleteManyTaskDto) {
+    return this.taskService.deleteManyTasks(taskIds.taskIds);
   }
 }

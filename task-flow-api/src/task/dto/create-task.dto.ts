@@ -10,7 +10,7 @@ import {
   MinLength,
 } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
-import { Transform } from "class-transformer";
+import { Transform, Type } from "class-transformer";
 import { IsDateOlderThan } from "../../utils/decorators/is-date-older.decorator";
 
 export class CreateTaskDto
@@ -63,4 +63,12 @@ export class CreateTaskDto
     default: TaskPriority.MEDIUM,
   })
   priority: TaskPriority;
+}
+
+
+export class deleteManyTaskDto {
+  @IsString({ each: true })
+  @ApiProperty({ isArray: true, type: String, required: false })
+  @IsNotEmpty()  
+  taskIds: string[];
 }

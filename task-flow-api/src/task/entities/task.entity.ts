@@ -29,3 +29,8 @@ export class TaskEntity implements Task {
   @ApiProperty()
   updatedAt: Date;
 }
+
+export class deleteManyTaskEntity {
+  @ApiProperty()
+  taskId: string[];
+}

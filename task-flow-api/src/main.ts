@@ -5,12 +5,20 @@ import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  
+  const corsOption = {
+    origin: true,
+    methods: ["GET","HEAD","PUT","PATCH","POST","DELETE"],
+    credentials: true,
+    maxAge: 3600
+  }
+
+  const app = await NestFactory.create(AppModule, { cors: corsOption });
 
   const confService = new ConfigService();
   const port = confService.get<number>("PORT") || 3000;
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform:true }));
 
   const config = new DocumentBuilder()
     .setTitle("Task Flow")
