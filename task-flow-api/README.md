@@ -33,3 +33,5 @@
    ```bash
    npm run start:dev
    ```
+Then go to 127.0.0.1:3333/api or (127.0.0.1:PORT/docs with PORT defined in the .env.development.local file) to access the documentation
+
