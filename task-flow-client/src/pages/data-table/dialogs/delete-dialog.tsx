@@ -31,7 +31,7 @@ export function DeleteDialog({
     const [isDeletePending, startDeleteTransition] = React.useTransition();
 
     async function deleteTasks() {
-        return await fetch("http://127.0.0.1:3333/tasks/deleteMany", {
+        return await fetch(`${import.meta.env.VITE_API_URL}/tasks/deleteMany`, {
             method: "POST",
             headers: {
                 Accept: "application/json",

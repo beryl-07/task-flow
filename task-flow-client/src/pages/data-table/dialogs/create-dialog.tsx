@@ -40,7 +40,7 @@ export function CreateTaskDialog() {
   });
 
   async function createTask(task: TaskType) {
-    return await fetch(`http://127.0.0.1:3333/tasks/`, {
+    return await fetch(`${import.meta.env.VITE_API_URL}/tasks/`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -50,8 +50,7 @@ export function CreateTaskDialog() {
     });
   }
 
-  function onSubmit(data: TaskType) {
-    (async () => {
+  const onSubmit = async (data: TaskType) => {
       console.log("data");
       console.log(data);
       try {
@@ -77,7 +76,6 @@ export function CreateTaskDialog() {
       } catch (error) {
         console.error(error);
       }
-    })();
   }
 
   return (

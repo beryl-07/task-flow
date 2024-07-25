@@ -45,7 +45,7 @@ type EditProps = {
 };
 
 export default function EditDialog({ task }: EditProps) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const form = useForm<TaskType>({
     resolver: zodResolver(TaskSchema),
     defaultValues: {
@@ -62,7 +62,7 @@ export default function EditDialog({ task }: EditProps) {
   const [isEditPending, startEditTransition] = React.useTransition();
 
   async function editTask(task: TaskType) {
-    return await fetch(`http://127.0.0.1:3333/tasks/${task.id}`, {
+    return await fetch(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -85,8 +85,7 @@ export default function EditDialog({ task }: EditProps) {
         return;
       }
       startEditTransition(() => {
-        // window.location.reload();
-        navigate(0)
+        navigate(0);
       });
     })();
   }

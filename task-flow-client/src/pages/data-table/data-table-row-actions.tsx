@@ -42,7 +42,7 @@ export function DataTableRowActions<TData>({
     setDialogContent(<EditDialog task={task} />);
   };
   async function editTask(task: TaskType) {
-    return await fetch(`http://127.0.0.1:3333/tasks/${task.id}`, {
+    return await fetch(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
